@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verbos irregulares</title>
+
+    <script src="Verbos.js"></script>
+    <style>
+
+        :root{
+            --Cantidad: 4.125rem;
+        }
+
+        body{
+            background: black;
+            width: fit-content;
+            margin: calc((100vh - 7.375rem - var(--Cantidad)) / 2) auto;
+        }
+
+        p{    
+            width: 11rem;
+            height: 2.125rem;
+            font-size: 1.25rem;
+            margin: 0.5rem 0px;
+            color: white;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+        }
+
+        #Verbos p {
+            display: block;
+            width: 8.5rem;
+            padding: 0px 0.25rem;
+            margin: 1rem 1rem;
+        }
+        
+        input{    
+            text-align: center;
+            padding: 0px 0.25rem;
+            width: 8.5rem;
+            height: 2.125rem;
+            font-size: 1.25rem;
+            margin: 1rem 1rem;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+            background: rgb(30, 30, 30);
+            outline: none;
+            border-radius: 25px;
+            border: none;
+        }
+
+        #Verbos1,
+        #Verbos2,
+        #Verbos3,
+        #Verbos4{
+            display: inline-block;
+            margin: 0.5rem 0px;
+            width: 11rem;
+            vertical-align: top;
+        }
+
+        #Validacion{
+            padding: 0.5vmin 1rem;
+            border: none;
+            color: white;
+            background: green;
+            text-align: center;
+            width: 9rem;
+            height: 2.25rem;
+            font-size: 1.25rem;
+            margin: 0.5rem 17.5rem;
+            font-family: Arial, Helvetica, sans-serif;
+            border-radius: 10rem;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div>
+        <p>Base Form</p>
+        <p>Past Simple</p>
+        <p>Present Continuous</p>
+        <p>Meaning</p>
+    </div>
+
+    <div id="Verbos"> 
+        <div id="Verbos1"></div>
+        <div id="Verbos2"></div>
+        <div id="Verbos3"></div>
+        <div id="Verbos4"></div>
+    </div>
+
+    <div>
+    	  <button id="Validacion">Validar</button>
+    </div>
+
+    <script>
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max + 1 - min)) + min;
+        }
+
+        function getMaxOfArray(numArray) {
+            return Math.max.apply(null, numArray);
+        }
+
+        var Instruccion;
+        var Verbo;
+        var Tiempos = {};
+        Tiempos.verbos = document.getElementById("Verbos")
+        Tiempos.verbos0 = document.getElementById("Verbos1");
+        Tiempos.verbos1 = document.getElementById("Verbos2");
+        Tiempos.verbos2 = document.getElementById("Verbos3");
+        Tiempos.verbos3 = document.getElementById("Verbos4");
+        Tiempos.Boton = document.getElementById("Validacion");
+
+        const Similitud = (Palabra, Similitudes) => {
+
+            let Palabras = [];
+            Similitudes.forEach(element => {
+
+                let Letras = [];
+                for (x = 0; x < element.length; x++) {
+
+                    Letras.push(element.toLowerCase().charAt(x));
+
+                }
+                Palabras.push(Letras)
+                
+            });
+
+            let Letra = [];
+            for (x = 0; x < Palabra.length; x++) {
+
+                Letra.push(Palabra.toLowerCase().charAt(x));
+
+            }
+
+            let Cant_Similitud = [];
+            Palabras.forEach( element => {
+
+                let C = 0;
+                for ( x = 0; x < element.length; x++ ) {
+                
+                    if (element[i] == Letra[i]) {
+
+                        C++;
+
+                    }
+
+                }
+                Cant_Similitud.push(C);
+
+            } );
+
+            let MAX = getMaxOfArray(Cant_Similitud);
+            let Pal = Cant_Similitud.indexOf(MAX);
+            return Similitudes[Pal];
+
+        }
+
+        const Crear_P = (Directorio, Verb, Clase) => {
+
+            for (let i = 0; i < Verb.length; i++) {
+                let P = document.createElement("p");
+                P.innerHTML = Verb[i];
+                P.className = Clase;
+                Directorio.appendChild(P);
+            }
+
+        }
+
+        const Crear_Input = (Directorio, Verb, Clase) => {
+
+            for (let i = 0; i < Verb.length; i++) {
+                let P = document.createElement("input");
+                P.className = Clase;
+                Directorio.appendChild(P);
+            }
+
+        }
+
+        const CrearVerbo = () => {
+
+            Tiempos.verbos0.innerHTML = "";
+            Tiempos.verbos1.innerHTML = "";
+            Tiempos.verbos2.innerHTML = "";
+            Tiempos.verbos3.innerHTML = "";
+            Verbo = getRandomInt(0, Verbos.length - 1);
+            Instruccion = getRandomInt(0,3);//4.375
+
+            document.querySelector("html").style.setProperty('--Cantidad', 4.125 * Math.max(Verbos[Verbo][0].length, Verbos[Verbo][1].length, Verbos[Verbo][2].length, Verbos[Verbo][3].length) + "rem");
+
+            for (i = 0; i < 4; i++) {
+
+                if (i != Instruccion) {
+
+                    Crear_Input( Tiempos[`verbos${i}`], Verbos[Verbo][i], Clases[i] );
+
+                } else {
+
+                    Crear_P( Tiempos[`verbos${i}`], Verbos[Verbo][i], Clases[i] );
+
+                }
+            }
+
+        }
+
+        const Contiene = (Valor, Soluciones) => {
+
+            let Sols = [];
+            Soluciones.forEach(el => {
+
+                let Principios = [], Finales = [], Contenidos = [];
+                let RawValue = el;
+                let idx = el.indexOf("(");
+                while (idx != -1) {
+                    Principios.unshift(idx);
+                    idx = el.indexOf("(", idx+1);
+                }
+
+                idx = el.indexOf(")");
+                while (idx != -1) {
+                    Finales.unshift(idx);
+                    idx = el.indexOf(")", idx+1);
+                }
+
+                for (let i = 0; i < Finales.length; i++) {
+                    Contenidos.unshift(el.substring(Principios[i]+1, Finales[i]));
+                    RawValue = RawValue.replace(RawValue.substring(Principios[i], Finales[i]+1), "")
+                }
+
+                Sols.unshift(RawValue);
+                for (let i = 0; i < Contenidos.length; i++) {
+                    Sols.unshift(RawValue+Contenidos[i])
+                }
+
+            })
+            
+            return Sols.includes(Valor);
+
+        }
+
+        const Validar = (e) => {
+
+            if (e.target.innerHTML == "Validar") {
+
+                e.target.innerHTML = "Siguiente";
+                let Valido = true;
+
+                for (i = 0; i < 4; i++) {
+
+                    if (i != Instruccion) {
+
+                        let Respuestas = [];
+                        let InputsMal = [];
+                        const Inputs = Tiempos["verbos" + i].getElementsByClassName(Clases[i]);
+
+                        for (o = 0; o < Inputs.length; o++) {
+
+                            if ( Contiene(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]) && !Respuestas.includes(Similitud(Inputs[o].value.toLowerCase(), Verbos[Verbo][i])) ) {
+
+                                Respuestas.unshift(Similitud(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]));
+                                Inputs[o].style.color = "green";
+                                Inputs[o].style.background = "rgb(30, 60, 30)";
+
+                            } else InputsMal.unshift(Inputs[o]);
+
+                        }
+                        
+                        for (o = 0; o < InputsMal.length; o++) {
+                        
+                        	let RespuestasSinSalir = JSON.parse(JSON.stringify(Verbos[Verbo][i]));
+                        	RespuestasSinSalir = RespuestasSinSalir.filter(val => !Respuestas.includes(val));
+                        	 
+                            InputsMal[o].value = Similitud(InputsMal[o].value.toLowerCase(), RespuestasSinSalir);
+                            Respuestas.unshift(Similitud(InputsMal[o].value.toLowerCase(), RespuestasSinSalir));
+                            InputsMal[o].style.color = "red";
+                            InputsMal[o].style.background = "rgb(60, 30, 30)";
+                            Valido = false;
+                        
+                        }
+
+                    }
+
+                }
+
+            } else if (e.target.innerHTML == "Siguiente") {
+
+                e.target.innerHTML = "Validar";
+                CrearVerbo();
+
+            }
+
+        }
+
+        Tiempos.Boton.addEventListener("click", Validar);
+
+        CrearVerbo();
+
+    </script>
+    
+</body>
+</html>
