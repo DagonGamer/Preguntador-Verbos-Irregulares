@@ -66,7 +66,7 @@ const Verbos = [
     [ ["put"], ["put"], ["put"], ["poner"] ],
     [ ["read"], ["read"], ["read"], ["leer"] ],
     [ ["ride"], ["rode"], ["ridden"], ["montar"] ],
-    [ ["ring"], ["rang"], ["rung"], ["llamar"] ],
+    [ ["ring"], ["rang"], ["rung"], ["llamar( por teléfono)"] ],
     [ ["rise"], ["rose"], ["risen"], ["elevarse", "alzarse"] ],
     [ ["run"], ["ran"], ["run"], ["correr"] ],
     [ ["say"], ["said"], ["said"], ["decir"] ],

@@ -193,7 +193,7 @@
             Tiempos.verbos1.innerHTML = "";
             Tiempos.verbos2.innerHTML = "";
             Tiempos.verbos3.innerHTML = "";
-            Verbo = getRandomInt(0, Verbos.length - 1);
+            Verbo = 22;//getRandomInt(0, Verbos.length - 1);
             Instruccion = getRandomInt(0,3);//4.375
 
             document.querySelector("html").style.setProperty('--Cantidad', 4.125 * Math.max(Verbos[Verbo][0].length, Verbos[Verbo][1].length, Verbos[Verbo][2].length, Verbos[Verbo][3].length) + "rem");
@@ -215,10 +215,10 @@
 
         const Contiene = (Valor, Soluciones) => {
 
-            let Sols = [];
-            Soluciones.forEach(el => {
+            for (e = 0; e < Soluciones.length; e++) {
+                let el = Soluciones[e];
 
-                let Principios = [], Finales = [], Contenidos = [];
+                let Principios = [], Finales = [], Contenidos = [], Sols = [];
                 let RawValue = el;
                 let idx = el.indexOf("(");
                 while (idx != -1) {
@@ -242,9 +242,11 @@
                     Sols.unshift(RawValue+Contenidos[i])
                 }
 
-            })
-            
-            return Sols.includes(Valor);
+                if (Sols.includes(Valor)) return el;
+
+            }
+
+            return false;
 
         }
 
@@ -264,10 +266,10 @@
                         const Inputs = Tiempos["verbos" + i].getElementsByClassName(Clases[i]);
 
                         for (o = 0; o < Inputs.length; o++) {
+                            
+                            if ( Contiene(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]) && !Respuestas.includes(Contiene(Inputs[o].value.toLowerCase(), Verbos[Verbo][i])) ) {
 
-                            if ( Contiene(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]) && !Respuestas.includes(Similitud(Inputs[o].value.toLowerCase(), Verbos[Verbo][i])) ) {
-
-                                Respuestas.unshift(Similitud(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]));
+                                Respuestas.unshift(Contiene(Inputs[o].value.toLowerCase(), Verbos[Verbo][i]));
                                 Inputs[o].style.color = "green";
                                 Inputs[o].style.background = "rgb(30, 60, 30)";
 
