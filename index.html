@@ -86,7 +86,7 @@
     <div>
         <p>Base Form</p>
         <p>Past Simple</p>
-        <p>Present Continuous</p>
+        <p>Past Participle</p>
         <p>Meaning</p>
     </div>
 
@@ -280,8 +280,9 @@
                         	let RespuestasSinSalir = JSON.parse(JSON.stringify(Verbos[Verbo][i]));
                         	RespuestasSinSalir = RespuestasSinSalir.filter(val => !Respuestas.includes(val));
                         	 
-                            InputsMal[o].value = Similitud(InputsMal[o].value.toLowerCase(), RespuestasSinSalir);
-                            Respuestas.unshift(Similitud(InputsMal[o].value.toLowerCase(), RespuestasSinSalir));
+                            let Respuesta = Similitud(InputsMal[o].value.toLowerCase(), RespuestasSinSalir);
+                            InputsMal[o].value = Respuesta;
+                            Respuestas.unshift(Respuesta);
                             InputsMal[o].style.color = "red";
                             InputsMal[o].style.background = "rgb(60, 30, 30)";
                             Valido = false;
