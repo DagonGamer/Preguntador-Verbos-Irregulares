@@ -193,7 +193,7 @@
             Tiempos.verbos1.innerHTML = "";
             Tiempos.verbos2.innerHTML = "";
             Tiempos.verbos3.innerHTML = "";
-            Verbo = 22;//getRandomInt(0, Verbos.length - 1);
+            Verbo = getRandomInt(0, Verbos.length - 1);
             Instruccion = getRandomInt(0,3);//4.375
 
             document.querySelector("html").style.setProperty('--Cantidad', 4.125 * Math.max(Verbos[Verbo][0].length, Verbos[Verbo][1].length, Verbos[Verbo][2].length, Verbos[Verbo][3].length) + "rem");
